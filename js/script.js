@@ -1,5 +1,6 @@
 var cells = [];
 var size = 3; //3x3 board
+var is_current_player_is_x = true;
 $(document).ready(function () {
     generate(size);
     display();
@@ -20,8 +21,17 @@ function generate(size) {
         current_div = $('<div><div>');
         current_div.attr('id', 'cell_' + i);
         current_div.attr('class', 'cell');
-        current_div.width($(window).width() / size - 20);
-        current_div.height($(window).width() / size - 20);
+        current_div.width($(window).width() / size - 17); //i substract 17px - when i do not do that game does not fit to the window
+        current_div.height($(window).width() / size - 17);
+        current_div.on('click', function () {
+            if (is_current_player_is_x) {
+                $(this).css('backgroundColor', 'blue');
+            }
+            else {
+                $(this).css('backgroundColor', 'yellow');
+            }
+            is_current_player_is_x = !is_current_player_is_x;
+        });
         cells.push(current_div);
     }
 }
