@@ -16,9 +16,8 @@ function update_size() {
 
 function generate(size) {
     cells = [];
-
     for (var i = 0; i < size * size; i++) {
-            cells.push(new Cell(size, i));
+        cells.push(new Cell(size, i));
     }
 }
 
@@ -36,13 +35,17 @@ function Cell(size, id) {
     current_div.width($(window).width() / size - 17); //i substract 17px - when i do not do that game does not fit to the window
     current_div.height($(window).width() / size - 17);
     current_div.on('click', function () {
-        if (is_current_player_is_x) {
-            $(this).css('backgroundColor', 'blue');
+        if (value == '') {
+            if (is_current_player_is_x) {
+                $(this).css('backgroundColor', 'blue');
+                value = 'x';
+            }
+            else {
+                $(this).css('backgroundColor', 'yellow');
+                value = 'o';
+            }
+            is_current_player_is_x = !is_current_player_is_x;
         }
-        else {
-            $(this).css('backgroundColor', 'yellow');
-        }
-        is_current_player_is_x = !is_current_player_is_x;
     });
     return current_div;
 }
