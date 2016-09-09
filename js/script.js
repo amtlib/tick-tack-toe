@@ -1,8 +1,8 @@
 var cells = [];
 var size = 3; //3x3 board
-
 $(document).ready(function () {
     generate(size);
+    display();
 });
 
 function generate(size) {
@@ -15,5 +15,11 @@ function generate(size) {
         current_div.width($(window).width() / size - 20);
         current_div.height($(window).width() / size - 20);
         cells.push(current_div);
+    }
+}
+
+function display() {
+    for (var i = 0; i < cells.length; i++) {
+        $('body').append(cells[i]);
     }
 }
