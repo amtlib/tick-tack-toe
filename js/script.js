@@ -4,6 +4,14 @@ $(document).ready(function () {
     generate(size);
     display();
 });
+$(window).on('resize', update_size);
+
+function update_size() {
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].width($(window).width() / size - 20);
+        cells[i].height($(window).width() / size - 20);
+    }
+}
 
 function generate(size) {
     cells = [];
