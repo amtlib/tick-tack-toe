@@ -1,21 +1,24 @@
 var cells = [];
-var size = 4; //3x3 board
+var size = 3; //3x3 board
 var running = true;
 var is_current_player_is_x = true;
 $(document).ready(function () {
     generate(size);
     display();
-
-    $('#reset').on('click',function () {
-    console.log('clear!');
-    for(var i = 0;i<cells.length;i++){
-        cells[i].value = '';
-        cells[i].empty();
-    }
-    running = true;
-    is_current_player_is_x = true;
-});
-
+    $('#reset').on('click', function () {
+        console.log('clear!');
+        for (var i = 0; i < cells.length; i++) {
+            cells[i].value = '';
+            cells[i].empty();
+        }
+        running = true;
+        is_current_player_is_x = true;
+    });
+    $('#color').on('change', function(){
+        for(var i = 0;i<cells.length;i++){
+            cells[i].css('backgroundColor', this.value);
+        }
+    });
 });
 $(window).on('resize', update_size);
 
