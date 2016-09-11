@@ -5,6 +5,17 @@ var is_current_player_is_x = true;
 $(document).ready(function () {
     generate(size);
     display();
+
+    $('#reset').on('click',function () {
+    console.log('clear!');
+    for(var i = 0;i<cells.length;i++){
+        cells[i].value = '';
+        cells[i].empty();
+    }
+    running = true;
+    is_current_player_is_x = true;
+});
+
 });
 $(window).on('resize', update_size);
 
@@ -28,145 +39,121 @@ function display() {
     }
 }
 
-function check(cells, size){
+function check(cells, size) {
     //looking for winner
     //returns 'x', 'o' or undefined
-
     //check row for x
     var x_in_row = 0;
-    for(var i = 0;i<size;i++){ // i - number of row
-        for(var j = 0;j<size;j++){ //i*size+j - index of current cell
-            if(cells[i*size+j].value == 'x'){
+    for (var i = 0; i < size; i++) { // i - number of row
+        for (var j = 0; j < size; j++) { //i*size+j - index of current cell
+            if (cells[i * size + j].value == 'x') {
                 x_in_row++;
             }
-            else{
+            else {
                 x_in_row = 0;
             }
-
         }
-        if(x_in_row == size){ //whole cells in row has the same value
+        if (x_in_row == size) { //whole cells in row has the same value
             return 'x';
-
         }
         x_in_row = 0;
-
-
     }
-
     var o_in_row = 0;
-    for(var i = 0;i<size;i++){ // i - number of row
-        for(var j = 0;j<size;j++){ //i*size+j - index of current cell
-            if(cells[i*size+j].value == 'o'){
+    for (var i = 0; i < size; i++) { // i - number of row
+        for (var j = 0; j < size; j++) { //i*size+j - index of current cell
+            if (cells[i * size + j].value == 'o') {
                 o_in_row++;
             }
-            else{
+            else {
                 o_in_row = 0;
             }
-
         }
-        if(o_in_row == size){ //whole cells in row has the same value
+        if (o_in_row == size) { //whole cells in row has the same value
             return 'o';
-
         }
         o_in_row = 0;
-
-
     }
     var x_in_col = 0;
-    for(var i = 0;i<size;i++){ // i - number of row
-        for(var j = 0;j<size;j++){ //i*size+j - index of current cell
-            if(cells[i+size*j].value == 'x'){
+    for (var i = 0; i < size; i++) { // i - number of row
+        for (var j = 0; j < size; j++) { //i*size+j - index of current cell
+            if (cells[i + size * j].value == 'x') {
                 x_in_col++;
             }
-            else{
+            else {
                 x_in_col = 0;
             }
-
         }
-        if(x_in_col == size){ //whole cells in row has the same value
+        if (x_in_col == size) { //whole cells in row has the same value
             return 'x';
-
         }
         x_in_col = 0;
-
-
     }
-
     var o_in_col = 0;
-    for(var i = 0;i<size;i++){ // i - number of row
-        for(var j = 0;j<size;j++){ //i*size+j - index of current cell
-            if(cells[i+size*j].value == 'x'){
+    for (var i = 0; i < size; i++) { // i - number of row
+        for (var j = 0; j < size; j++) { //i*size+j - index of current cell
+            if (cells[i + size * j].value == 'o') {
                 o_in_col++;
             }
-            else{
+            else {
                 o_in_col = 0;
             }
-
         }
-        if(o_in_col == size){ //whole cells in row has the same value
-            return 'x';
-
+        if (o_in_col == size) { //whole cells in row has the same value
+            return 'o';
         }
         o_in_col = 0;
-
-
     }
-
     var x_bevel = 0;
-    for(var i = 0;i<size;i++){
-        if(cells[size*i+i].value == 'x'){
+    for (var i = 0; i < size; i++) {
+        if (cells[size * i + i].value == 'x') {
             x_bevel++;
         }
-        else{
+        else {
             x_bevel = 0;
         }
-        if(x_bevel == size){
+        if (x_bevel == size) {
             return 'x';
         }
     }
-
     var o_bevel = 0;
-    for(var i = 0;i<size;i++){
-        if(cells[size*i+i].value == 'o'){
+    for (var i = 0; i < size; i++) {
+        if (cells[size * i + i].value == 'o') {
             o_bevel++;
         }
-        else{
+        else {
             o_bevel = 0;
         }
-        if(o_bevel == size){
+        if (o_bevel == size) {
             return 'o';
         }
     }
-
     var x_second_bevel = 0;
-    for(var i = 0;i<size;i++){
-        if(cells[size-1+i*(size-1)].value == 'x'){
+    for (var i = 0; i < size; i++) {
+        if (cells[size - 1 + i * (size - 1)].value == 'x') {
             x_second_bevel++;
         }
-        else{
+        else {
             x_second_bevel = 0;
         }
-        if(x_second_bevel == size){
+        if (x_second_bevel == size) {
             return 'x';
         }
     }
-
     var o_second_bevel = 0;
-    for(var i = 0;i<size;i++){
-        if(cells[size-1+i*(size-1)].value == 'o'){
+    for (var i = 0; i < size; i++) {
+        if (cells[size - 1 + i * (size - 1)].value == 'o') {
             o_second_bevel++;
         }
-        else{
+        else {
             o_second_bevel = 0;
         }
-        if(o_second_bevel == size){
+        if (o_second_bevel == size) {
             return 'o';
         }
     }
-
 }
-function Cell(size, id) {
 
+function Cell(size, id) {
     var current_div = $('<div></div>');
     current_div.value = '';
     current_div.attr('id', 'cell_' + id);
@@ -180,10 +167,10 @@ function Cell(size, id) {
                 current_div.value = 'x';
             }
             else {
-               $(this).append('<img src="../img/o.png">');
+                $(this).append('<img src="../img/o.png">');
                 current_div.value = 'o';
             }
-            if(check(cells, size)){
+            if (check(cells, size)) {
                 alert('Wygral gracz ' + check(cells, size));
                 running = false;
             }
