@@ -2,10 +2,8 @@ var cells = [];
 var size = 3; //3x3 board
 var running = true;
 var is_current_player_is_x = true;
-$(document).ready(function () {
-    generate(size);
-    display();
-    $('#reset').on('click', function () {
+
+function reset() {
         console.log('clear!');
         for (var i = 0; i < cells.length; i++) {
             cells[i].value = '';
@@ -13,19 +11,32 @@ $(document).ready(function () {
         }
         running = true;
         is_current_player_is_x = true;
-    });
+    }
+$(document).ready(function () {
+    generate(size);
+    display();
+    $('#reset').on('click', reset);
     $('#color').on('change', function(){
         for(var i = 0;i<cells.length;i++){
             cells[i].css('backgroundColor', this.value);
         }
+    });
+    $('#size').on('change', function(){
+        console.log('change!');
+        $('#game').empty();
+        size = parseInt($(this).val());
+        reset();
+        generate(size);
+        display();
+
     });
 });
 $(window).on('resize', update_size);
 
 function update_size() {
     for (var i = 0; i < cells.length; i++) {
-        cells[i].width($(window).width() / size - 20);
-        cells[i].height($(window).width() / size - 20);
+        cells[i].width($(window).width() / size - 12);
+        cells[i].height($(window).width() / size - 12);
     }
 }
 
@@ -38,7 +49,7 @@ function generate(size) {
 
 function display() {
     for (var i = 0; i < cells.length; i++) {
-        $('body').append(cells[i]);
+        $('#game').append(cells[i]);
     }
 }
 
